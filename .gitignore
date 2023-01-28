@@ -11,5 +11,14 @@
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
+# Build directory
+build/
+
+# OS X .DS_Store
+.DS_Store
+
+# Workspace
+.idea/
+
 # Dependency directories (remove the comment below to include it)
 # vendor/

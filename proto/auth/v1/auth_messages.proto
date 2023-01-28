@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package go_grpc_microservices.auth.v1;
+
+option go_package = "github.com/MochamadAkbar/go-grpc-microservices/proto/auth/v1;authv1";
+
+message TokenData {
+  string userId = 1;
+  string token = 2;
+  uint32 expiresIn = 3;
+}
+
+message RegisterRequest {
+  string name = 1;
+  string email = 2;
+  string password = 3;
+}
+
+message RegisterResponse {
+  uint32 code = 1;
+  string status = 2;
+  string message = 3;
+  TokenData data = 4;
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  uint32 code = 1;
+  string status = 2;
+  string message = 3;
+  TokenData data = 4;
+}

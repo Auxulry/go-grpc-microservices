@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package go_grpc_microservices.auth.v1;
+
+option go_package = "github.com/MochamadAkbar/go-grpc-microservices/proto/auth/v1;authv1";
+
+import "google/api/annotations.proto";
+import "auth/v1/auth_messages.proto";
+
+service AuthService {
+  rpc Register (RegisterRequest) returns (RegisterResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/authentication/register",
+      body: "*"
+    };
+  }
+
+  rpc Login (LoginRequest) returns (LoginResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/authentication/login",
+      body: "*"
+    };
+  }
+}
