@@ -17,6 +17,29 @@ type RPCServer struct {
 	Network  string
 }
 
+func NewRPCServer(addr, network string, tls bool, opts ...grpc.ServerOption) *RPCServer {
+	if tls {
+		certFile := "ssl/certificates/server.crt" // => your certFile file path
+		keyFile := "ssl/server.pem"               // => your keyFile file patn
+
+		creds, err := credentials.NewServerTLSFromFile(certFile, keyFile)
+		if err != nil {
+			log.Fatal(err.Error())
+		}
+		opts = append(opts, grpc.Creds(creds))
+	}
+
+	opts = append(opts, grpc.ChainUnaryInterceptor(LogInterceptor()))
+
+	s := grpc.NewServer(opts...)
+
+	return &RPCServer{
+		Addr:    addr,
+		Network: network,
+		Server:  s,
+	}
+}
+
 func (rpc *RPCServer) Run() error {
 	var err error
 	rpc.Listener, err = net.Listen(rpc.Network, fmt.Sprintf(":%v", rpc.Addr))
@@ -44,27 +67,4 @@ func (rpc *RPCServer) Terminate(ctx context.Context) {
 		defer rpc.Server.GracefulStop()
 		<-ctx.Done()
 	}()
-}
-
-func NewRPCServer(addr, network string, tls bool, opts ...grpc.ServerOption) *RPCServer {
-	if tls {
-		certFile := "ssl/certificates/server.crt" // => your certFile file path
-		keyFile := "ssl/server.pem"               // => your keyFile file patn
-
-		creds, err := credentials.NewServerTLSFromFile(certFile, keyFile)
-		if err != nil {
-			log.Fatal(err.Error())
-		}
-		opts = append(opts, grpc.Creds(creds))
-	}
-
-	opts = append(opts, grpc.ChainUnaryInterceptor(LogInterceptor()))
-
-	s := grpc.NewServer(opts...)
-
-	return &RPCServer{
-		Addr:    addr,
-		Network: network,
-		Server:  s,
-	}
 }

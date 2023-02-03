@@ -1,3 +1,4 @@
+// Package jwtio is shared pkg of json web token
 package jwtio
 
 import (
@@ -16,7 +17,7 @@ const (
 	RSAPSS
 )
 
-func NewJWT(method jwt.SigningMethod, key []byte, isClaim bool, claims jwt.MapClaims) (string, error) {
+func JWTGenerate(method jwt.SigningMethod, key []byte, isClaim bool, claims jwt.MapClaims) (string, error) {
 	if isClaim {
 		token := jwt.NewWithClaims(method, claims)
 
@@ -39,95 +40,77 @@ func NewJWT(method jwt.SigningMethod, key []byte, isClaim bool, claims jwt.MapCl
 }
 
 func JWTParse(method JWTMethod, tokenString string, key []byte, isClaim bool, claims jwt.MapClaims) (*jwt.Token, error) {
-	if isClaim {
-		switch method {
-		case HMAC:
-			token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
-				if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-					return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
-				}
-
-				return key, nil
-			})
-			return token, err
-		case Ed25519:
-			token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
-				if _, ok := token.Method.(*jwt.SigningMethodEd25519); !ok {
-					return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
-				}
-				return key, nil
-			})
-			return token, err
-		case ECDSA:
-			token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
-				if _, ok := token.Method.(*jwt.SigningMethodECDSA); !ok {
-					return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
-				}
-				return key, nil
-			})
-			return token, err
-		case RSA:
-			token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
-				if _, ok := token.Method.(*jwt.SigningMethodRSA); !ok {
-					return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
-				}
-				return key, nil
-			})
-			return token, err
-		case RSAPSS:
-			token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
-				if _, ok := token.Method.(*jwt.SigningMethodRSAPSS); !ok {
-					return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
-				}
-				return key, nil
-			})
-			return token, err
-		default:
-			return &jwt.Token{}, fmt.Errorf("unknown method %v", method)
-		}
-	}
-
 	switch method {
 	case HMAC:
-		token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+		signing := func(token *jwt.Token) (interface{}, error) {
 			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 				return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 			}
 			return key, nil
-		})
-		return token, err
+		}
+		if isClaim {
+			token, err := jwt.ParseWithClaims(tokenString, claims, signing)
+			return token, err
+		} else {
+			token, err := jwt.Parse(tokenString, signing)
+			return token, err
+		}
 	case Ed25519:
-		token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+		signing := func(token *jwt.Token) (interface{}, error) {
 			if _, ok := token.Method.(*jwt.SigningMethodEd25519); !ok {
 				return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 			}
 			return key, nil
-		})
-		return token, err
+		}
+		if isClaim {
+			token, err := jwt.ParseWithClaims(tokenString, claims, signing)
+			return token, err
+		} else {
+			token, err := jwt.Parse(tokenString, signing)
+			return token, err
+		}
 	case ECDSA:
-		token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+		signing := func(token *jwt.Token) (interface{}, error) {
 			if _, ok := token.Method.(*jwt.SigningMethodECDSA); !ok {
 				return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 			}
 			return key, nil
-		})
-		return token, err
+		}
+		if isClaim {
+			token, err := jwt.ParseWithClaims(tokenString, claims, signing)
+			return token, err
+		} else {
+			token, err := jwt.Parse(tokenString, signing)
+			return token, err
+		}
 	case RSA:
-		token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+		signing := func(token *jwt.Token) (interface{}, error) {
 			if _, ok := token.Method.(*jwt.SigningMethodRSA); !ok {
 				return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 			}
 			return key, nil
-		})
-		return token, err
+		}
+		if isClaim {
+			token, err := jwt.ParseWithClaims(tokenString, claims, signing)
+			return token, err
+		} else {
+			token, err := jwt.Parse(tokenString, signing)
+			return token, err
+		}
 	case RSAPSS:
-		token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+		signing := func(token *jwt.Token) (interface{}, error) {
 			if _, ok := token.Method.(*jwt.SigningMethodRSAPSS); !ok {
 				return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 			}
 			return key, nil
-		})
-		return token, err
+		}
+		if isClaim {
+			token, err := jwt.ParseWithClaims(tokenString, claims, signing)
+			return token, err
+		} else {
+			token, err := jwt.Parse(tokenString, signing)
+			return token, err
+		}
 	default:
 		return &jwt.Token{}, fmt.Errorf("unknown method %v", method)
 	}

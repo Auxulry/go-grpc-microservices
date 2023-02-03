@@ -2,12 +2,25 @@ syntax = "proto3";
 
 package go_grpc_microservices.auth.v1;
 
-option go_package = "github.com/MochamadAkbar/go-grpc-microservices/proto/auth/v1;authv1";
-
 import "google/api/annotations.proto";
 import "auth/v1/auth_messages.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option go_package = "github.com/MochamadAkbar/go-grpc-microservices/proto/auth/v1;authv1";
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "Authentication",
+    version: "v1.0.0"
+  }
+};
 
 service AuthService {
+  rpc Check (HealthCheckRequest) returns (HealthCheckResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/authentication/healthz",
+    };
+  }
+
   rpc Register (RegisterRequest) returns (RegisterResponse) {
     option (google.api.http) = {
       post: "/api/v1/authentication/register",

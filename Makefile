@@ -15,8 +15,18 @@ proto-gen:
 	@echo "Generating the stubs"
 	./scripts/proto-gen.sh
 	@echo "Success generate stubs. All stubs created are in the 'stubs/' directory"
+	@echo "Generating the Swagger UI"
+	./scripts/swagger-ui-gen.sh
+	@echo "Success generate Swagger UI. If you want to change Swagger UI to previous version copy the previous version from './cache/swagger-ui' directory"
+	@echo "You can try swagger-ui with command 'make debug'"
 	@echo "DO NOT EDIT ANY FILES STUBS!"
 .PHONY: proto-gen
+
+ssl-gen:
+	@echo "Generating ssl configuration"
+	./scripts/ssl-gen.sh
+	@echo "Success generate ssl configuration. All SSL Configuration created in the 'ssl/' directory"
+	@echo "DO NOT EXPOSE SSL DIRECTORY!"
 
 dependency:
 	@echo "Downloading all Go dependencies needed"

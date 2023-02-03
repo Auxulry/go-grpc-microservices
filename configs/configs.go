@@ -1,3 +1,4 @@
+// Package configs is describe all configuration for this source
 package configs
 
 import "github.com/spf13/viper"

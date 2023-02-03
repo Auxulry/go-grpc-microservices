@@ -4,6 +4,12 @@ package go_grpc_microservices.auth.v1;
 
 option go_package = "github.com/MochamadAkbar/go-grpc-microservices/proto/auth/v1;authv1";
 
+message HealthCheckRequest {}
+
+message HealthCheckResponse {
+  string message = 1;
+}
+
 message TokenData {
   string userId = 1;
   string token = 2;

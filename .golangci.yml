@@ -35,6 +35,10 @@ linters-settings:
   stylecheck:
     check: ["all", "-ST1000"]
 
+  funlen:
+    lines: 100
+    statements: 45
+
 linters:
   enable:
     - bodyclose

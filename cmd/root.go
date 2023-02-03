@@ -7,11 +7,14 @@ import (
 	"log"
 	"os"
 
-	"github.com/MochamadAkbar/go-grpc-microservices/pkg/gateway"
+	"github.com/MochamadAkbar/go-grpc-microservices/domain"
+	"github.com/MochamadAkbar/go-grpc-microservices/internal/gateway"
 	"github.com/MochamadAkbar/go-grpc-microservices/pkg/rpcclient"
 	"github.com/MochamadAkbar/go-grpc-microservices/pkg/rpcserver"
 	"github.com/spf13/cobra"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/health"
+	"google.golang.org/grpc/health/grpc_health_v1"
 )
 
 var (
@@ -27,19 +30,21 @@ var (
 			rpcServer := rpcserver.NewRPCServer(svPort, "tcp", false)
 			defer rpcServer.StopListener()
 
+			domain.RegisterAuthServiceServer(ctx, rpcServer.Server)
+			grpc_health_v1.RegisterHealthServer(rpcServer.Server, health.NewServer())
 			log.Println("Serving gRPC on ", svPort)
 			if err := rpcServer.Run(); err != nil {
 				log.Fatalln("Failed to listen grpc server")
 			}
 
-			_, err := rpcclient.NewRPCClient(ctx, svPort, false, grpc.WithBlock())
-			fmt.Println("Dial Server")
+			rpcClient, err := rpcclient.NewRPCClient(ctx, svPort, false, grpc.WithBlock())
 			if err != nil {
 				log.Fatalln("Failed to dial server:", err)
 			}
 
 			rpcGateway := gateway.NewGateway(gwPort)
-			log.Println("Serving gRPC-Gateway on http://0.0.0.0:5001")
+			domain.RegisterAuthServiceHandler(ctx, rpcGateway.ServeMux, rpcClient)
+			log.Println("Serving gRPC-Gateway on ", gwPort)
 			if err := rpcGateway.Run(ctx); err != nil {
 				log.Fatalln("Failed to listen grpc server")
 			}

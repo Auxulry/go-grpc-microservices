@@ -28,3 +28,9 @@ build/
 .env
 .env.local
 .env.*.local
+
+# SSL
+ssl/
+
+# Cache Directory
+.cache/
