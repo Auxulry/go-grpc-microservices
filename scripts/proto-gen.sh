@@ -17,5 +17,6 @@ protoc -I ./proto \
 # Generate Gorm Entity
 protoc -I ./proto \
   --proto_path ./third_party/proto \
-  --gorm_out ./domain/entity \
+  --go_out ./stubs --go_opt paths=source_relative \
+  --gorm_out=engine=postgres:./stubs --gorm_opt paths=source_relative \
   ./proto/*/v1/entity/*_entity.proto

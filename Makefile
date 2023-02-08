@@ -36,6 +36,10 @@ dependency:
 	@echo "All Go dependencies was downloaded. you can run 'make debug' to compile locally or 'make build' to build app."
 .PHONY: dependency
 
+tidy:
+	go mod tidy
+.PHONY: tidy
+
 lint:
 	golangci-lint run ./...
 .PHONY: lint
