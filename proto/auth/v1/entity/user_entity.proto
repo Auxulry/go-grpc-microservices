@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package go_grpc_microservices.auth.v1.entity;
+
+import "protoc-gen-gorm/options/gorm.proto";
+import "google/api/field_behavior.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/MochamadAkbar/go-grpc-microservices/proto/auth/v1/entity;entity";
+
+message UserEntity {
+  option (gorm.opts) = {
+    ormable: true,
+    table: 'users'
+  };
+
+  string id = 1 [
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (gorm.field).tag = {type: "uuid", primary_key: true not_null: true default: "uuid_generate_v4()"}
+  ];
+  string name = 2 [(gorm.field).tag = {not_null: true}];
+  string email = 3 [(gorm.field).tag = {unique: true not_null: true}];
+  string password = 4 [(gorm.field).tag = {not_null: true}];
+  google.protobuf.Timestamp created_at = 5 [(google.api.field_behavior) = OUTPUT_ONLY];
+  google.protobuf.Timestamp updated_at = 6 [(google.api.field_behavior) = OUTPUT_ONLY];
+}

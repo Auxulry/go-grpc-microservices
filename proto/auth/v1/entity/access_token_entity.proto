@@ -5,22 +5,24 @@ package go_grpc_microservices.auth.v1.entity;
 import "protoc-gen-gorm/options/gorm.proto";
 import "google/api/field_behavior.proto";
 import "google/protobuf/timestamp.proto";
+import "auth/v1/entity/user_entity.proto";
+import "atlas/resource/v1/resource.proto";
 
 option go_package = "github.com/MochamadAkbar/go-grpc-microservices/proto/auth/v1/entity;entity";
 
-message AuthEntity {
+message AccessTokenEntity {
   option (gorm.opts) = {
     ormable: true,
-    table: 'users'
+    table: 'access_tokens'
   };
 
   string id = 1 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (gorm.field).tag = {type: "uuid", primary_key: true not_null: true default: "uuid_generate_v4()"}
   ];
-  string name = 2 [(gorm.field).tag = {not_null: true}];
-  string email = 3 [(gorm.field).tag = {unique: true not_null: true}];
-  string password = 4 [(gorm.field).tag = {not_null: true}];
+  repeated UserEntity users = 2;
+  bool revoked = 3 [(gorm.field).tag = {default: "0"}];
+  google.protobuf.Timestamp expires_at = 4 [(gorm.field).tag = {not_null: true}];
   google.protobuf.Timestamp created_at = 5 [(google.api.field_behavior) = OUTPUT_ONLY];
   google.protobuf.Timestamp updated_at = 6 [(google.api.field_behavior) = OUTPUT_ONLY];
 }

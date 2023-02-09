@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.26.0
 // 	protoc        v3.20.3
-// source: auth/v1/entity/auth_entity.proto
+// source: auth/v1/entity/user_entity.proto
 
 package entity
 
@@ -23,7 +23,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type AuthEntity struct {
+type UserEntity struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -36,23 +36,23 @@ type AuthEntity struct {
 	UpdatedAt *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
 }
 
-func (x *AuthEntity) Reset() {
-	*x = AuthEntity{}
+func (x *UserEntity) Reset() {
+	*x = UserEntity{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_auth_v1_entity_auth_entity_proto_msgTypes[0]
+		mi := &file_auth_v1_entity_user_entity_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
 }
 
-func (x *AuthEntity) String() string {
+func (x *UserEntity) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*AuthEntity) ProtoMessage() {}
+func (*UserEntity) ProtoMessage() {}
 
-func (x *AuthEntity) ProtoReflect() protoreflect.Message {
-	mi := &file_auth_v1_entity_auth_entity_proto_msgTypes[0]
+func (x *UserEntity) ProtoReflect() protoreflect.Message {
+	mi := &file_auth_v1_entity_user_entity_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -63,58 +63,58 @@ func (x *AuthEntity) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use AuthEntity.ProtoReflect.Descriptor instead.
-func (*AuthEntity) Descriptor() ([]byte, []int) {
-	return file_auth_v1_entity_auth_entity_proto_rawDescGZIP(), []int{0}
+// Deprecated: Use UserEntity.ProtoReflect.Descriptor instead.
+func (*UserEntity) Descriptor() ([]byte, []int) {
+	return file_auth_v1_entity_user_entity_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *AuthEntity) GetId() string {
+func (x *UserEntity) GetId() string {
 	if x != nil {
 		return x.Id
 	}
 	return ""
 }
 
-func (x *AuthEntity) GetName() string {
+func (x *UserEntity) GetName() string {
 	if x != nil {
 		return x.Name
 	}
 	return ""
 }
 
-func (x *AuthEntity) GetEmail() string {
+func (x *UserEntity) GetEmail() string {
 	if x != nil {
 		return x.Email
 	}
 	return ""
 }
 
-func (x *AuthEntity) GetPassword() string {
+func (x *UserEntity) GetPassword() string {
 	if x != nil {
 		return x.Password
 	}
 	return ""
 }
 
-func (x *AuthEntity) GetCreatedAt() *timestamppb.Timestamp {
+func (x *UserEntity) GetCreatedAt() *timestamppb.Timestamp {
 	if x != nil {
 		return x.CreatedAt
 	}
 	return nil
 }
 
-func (x *AuthEntity) GetUpdatedAt() *timestamppb.Timestamp {
+func (x *UserEntity) GetUpdatedAt() *timestamppb.Timestamp {
 	if x != nil {
 		return x.UpdatedAt
 	}
 	return nil
 }
 
-var File_auth_v1_entity_auth_entity_proto protoreflect.FileDescriptor
+var File_auth_v1_entity_user_entity_proto protoreflect.FileDescriptor
 
-var file_auth_v1_entity_auth_entity_proto_rawDesc = []byte{
+var file_auth_v1_entity_user_entity_proto_rawDesc = []byte{
 	0x0a, 0x20, 0x61, 0x75, 0x74, 0x68, 0x2f, 0x76, 0x31, 0x2f, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79,
-	0x2f, 0x61, 0x75, 0x74, 0x68, 0x5f, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x2e, 0x70, 0x72, 0x6f,
+	0x2f, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x2e, 0x70, 0x72, 0x6f,
 	0x74, 0x6f, 0x12, 0x24, 0x67, 0x6f, 0x5f, 0x67, 0x72, 0x70, 0x63, 0x5f, 0x6d, 0x69, 0x63, 0x72,
 	0x6f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x61, 0x75, 0x74, 0x68, 0x2e, 0x76,
 	0x31, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x1a, 0x22, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x63,
@@ -124,7 +124,7 @@ var file_auth_v1_entity_auth_entity_proto_rawDesc = []byte{
 	0x65, 0x68, 0x61, 0x76, 0x69, 0x6f, 0x72, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1f, 0x67,
 	0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2f, 0x74,
 	0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0xba,
-	0x02, 0x0a, 0x0a, 0x41, 0x75, 0x74, 0x68, 0x45, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x12, 0x37, 0x0a,
+	0x02, 0x0a, 0x0a, 0x55, 0x73, 0x65, 0x72, 0x45, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x12, 0x37, 0x0a,
 	0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x27, 0xe0, 0x41, 0x03, 0xba, 0xb9,
 	0x19, 0x20, 0x0a, 0x1e, 0x12, 0x04, 0x75, 0x75, 0x69, 0x64, 0x28, 0x01, 0x3a, 0x12, 0x75, 0x75,
 	0x69, 0x64, 0x5f, 0x67, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x65, 0x5f, 0x76, 0x34, 0x28, 0x29,
@@ -153,25 +153,25 @@ var file_auth_v1_entity_auth_entity_proto_rawDesc = []byte{
 }
 
 var (
-	file_auth_v1_entity_auth_entity_proto_rawDescOnce sync.Once
-	file_auth_v1_entity_auth_entity_proto_rawDescData = file_auth_v1_entity_auth_entity_proto_rawDesc
+	file_auth_v1_entity_user_entity_proto_rawDescOnce sync.Once
+	file_auth_v1_entity_user_entity_proto_rawDescData = file_auth_v1_entity_user_entity_proto_rawDesc
 )
 
-func file_auth_v1_entity_auth_entity_proto_rawDescGZIP() []byte {
-	file_auth_v1_entity_auth_entity_proto_rawDescOnce.Do(func() {
-		file_auth_v1_entity_auth_entity_proto_rawDescData = protoimpl.X.CompressGZIP(file_auth_v1_entity_auth_entity_proto_rawDescData)
+func file_auth_v1_entity_user_entity_proto_rawDescGZIP() []byte {
+	file_auth_v1_entity_user_entity_proto_rawDescOnce.Do(func() {
+		file_auth_v1_entity_user_entity_proto_rawDescData = protoimpl.X.CompressGZIP(file_auth_v1_entity_user_entity_proto_rawDescData)
 	})
-	return file_auth_v1_entity_auth_entity_proto_rawDescData
+	return file_auth_v1_entity_user_entity_proto_rawDescData
 }
 
-var file_auth_v1_entity_auth_entity_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
-var file_auth_v1_entity_auth_entity_proto_goTypes = []interface{}{
-	(*AuthEntity)(nil),            // 0: go_grpc_microservices.auth.v1.entity.AuthEntity
+var file_auth_v1_entity_user_entity_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_auth_v1_entity_user_entity_proto_goTypes = []interface{}{
+	(*UserEntity)(nil),            // 0: go_grpc_microservices.auth.v1.entity.UserEntity
 	(*timestamppb.Timestamp)(nil), // 1: google.protobuf.Timestamp
 }
-var file_auth_v1_entity_auth_entity_proto_depIdxs = []int32{
-	1, // 0: go_grpc_microservices.auth.v1.entity.AuthEntity.created_at:type_name -> google.protobuf.Timestamp
-	1, // 1: go_grpc_microservices.auth.v1.entity.AuthEntity.updated_at:type_name -> google.protobuf.Timestamp
+var file_auth_v1_entity_user_entity_proto_depIdxs = []int32{
+	1, // 0: go_grpc_microservices.auth.v1.entity.UserEntity.created_at:type_name -> google.protobuf.Timestamp
+	1, // 1: go_grpc_microservices.auth.v1.entity.UserEntity.updated_at:type_name -> google.protobuf.Timestamp
 	2, // [2:2] is the sub-list for method output_type
 	2, // [2:2] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name
@@ -179,14 +179,14 @@ var file_auth_v1_entity_auth_entity_proto_depIdxs = []int32{
 	0, // [0:2] is the sub-list for field type_name
 }
 
-func init() { file_auth_v1_entity_auth_entity_proto_init() }
-func file_auth_v1_entity_auth_entity_proto_init() {
-	if File_auth_v1_entity_auth_entity_proto != nil {
+func init() { file_auth_v1_entity_user_entity_proto_init() }
+func file_auth_v1_entity_user_entity_proto_init() {
+	if File_auth_v1_entity_user_entity_proto != nil {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_auth_v1_entity_auth_entity_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AuthEntity); i {
+		file_auth_v1_entity_user_entity_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UserEntity); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -202,18 +202,18 @@ func file_auth_v1_entity_auth_entity_proto_init() {
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_auth_v1_entity_auth_entity_proto_rawDesc,
+			RawDescriptor: file_auth_v1_entity_user_entity_proto_rawDesc,
 			NumEnums:      0,
 			NumMessages:   1,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_auth_v1_entity_auth_entity_proto_goTypes,
-		DependencyIndexes: file_auth_v1_entity_auth_entity_proto_depIdxs,
-		MessageInfos:      file_auth_v1_entity_auth_entity_proto_msgTypes,
+		GoTypes:           file_auth_v1_entity_user_entity_proto_goTypes,
+		DependencyIndexes: file_auth_v1_entity_user_entity_proto_depIdxs,
+		MessageInfos:      file_auth_v1_entity_user_entity_proto_msgTypes,
 	}.Build()
-	File_auth_v1_entity_auth_entity_proto = out.File
-	file_auth_v1_entity_auth_entity_proto_rawDesc = nil
-	file_auth_v1_entity_auth_entity_proto_goTypes = nil
-	file_auth_v1_entity_auth_entity_proto_depIdxs = nil
+	File_auth_v1_entity_user_entity_proto = out.File
+	file_auth_v1_entity_user_entity_proto_rawDesc = nil
+	file_auth_v1_entity_user_entity_proto_goTypes = nil
+	file_auth_v1_entity_user_entity_proto_depIdxs = nil
 }
