@@ -1,8 +1,15 @@
+# You can change file env like .env or .env.*.local
+include .env
+
 ENGINE=cmd/server/main.go
 BUILD_DIR=build
+CONN_STRING="postgres://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?sslmode=${DB_SSL}"
+MIGRATION_PATH=db/migrations
+RPC_PORT=3000
+GATEWAY_PORT=3001
 
 debug:
-	go run ${ENGINE} service --svport 3000 --gwport 3001
+	go run ${ENGINE} service --svport ${RPC_PORT} --gwport ${GATEWAY_PORT}
 .PHONY: debug
 
 build:
@@ -44,9 +51,23 @@ clean-proto:
 .PHONY: clean-proto
 
 tidy:
+	@echo "Synchronize dependency"
 	go mod tidy
+	@echo "Finish Synchronize dependency"
 .PHONY: tidy
 
 lint:
 	golangci-lint run ./...
 .PHONY: lint
+
+migration-up:
+	@echo "Starting migrations up"
+	migrate -database ${CONN_STRING} -path ${MIGRATION_PATH} up
+	@echo "Finish migration up"
+.PHONY: migration-up
+
+migration-down:
+	@echo "Starting migrations down"
+	migrate -database ${CONN_STRING} -path ${MIGRATION_PATH} down -all
+	@echo "Finish migrations down"
+.PHONY: migration-down

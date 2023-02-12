@@ -3,9 +3,9 @@ package repository
 
 import (
 	"context"
+	"github.com/MochamadAkbar/go-grpc-microservices/pkg/orm"
 
 	"github.com/MochamadAkbar/go-grpc-microservices/stubs/auth/v1/entity"
-	"github.com/jinzhu/gorm"
 )
 
 type AuthRepository interface {
@@ -14,16 +14,17 @@ type AuthRepository interface {
 }
 
 type AuthRepositoryImpl struct {
-	Conn *gorm.DB
+	Conn *orm.Provider
 }
 
 func (repository *AuthRepositoryImpl) Register(ctx context.Context, r *entity.UserEntity) (entity.UserEntity, error) {
-	//TODO implement me
-	panic("implement me")
+	return entity.UserEntity{
+		Id: "test",
+	}, nil
 }
 
 func (repository *AuthRepositoryImpl) Login(ctx context.Context, r *entity.UserEntity) (entity.UserEntity, error) {
-	//TODO implement me
-	panic("implement me")
+	return entity.UserEntity{
+		Id: "test",
+	}, nil
 }
-

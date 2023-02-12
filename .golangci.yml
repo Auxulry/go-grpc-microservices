@@ -2,6 +2,7 @@ run:
   timeout: 5m
   skip-dirs:
     - stubs
+    - third_party
 
 linters-settings:
   dupl:

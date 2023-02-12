@@ -6,7 +6,6 @@ import "protoc-gen-gorm/options/gorm.proto";
 import "google/api/field_behavior.proto";
 import "google/protobuf/timestamp.proto";
 import "auth/v1/entity/user_entity.proto";
-import "atlas/resource/v1/resource.proto";
 
 option go_package = "github.com/MochamadAkbar/go-grpc-microservices/proto/auth/v1/entity;entity";
 
