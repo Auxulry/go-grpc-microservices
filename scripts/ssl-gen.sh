@@ -36,3 +36,12 @@ openssl x509 -req -extfile <(printf "subjectAltName=DNS:${SERVER_CN}") -passin p
 
 # Step 5: Convert the server certificate to .pem format (server.pem) - usable by gRPC
 openssl pkcs8 -topk8 -nocrypt -passin pass:1111 -in ${KEYS}/server.key -out ./ssl/server.pem
+
+
+# Json Web Token Certificate
+
+# Step 1: Generate RSA Private key (id_rsa.key)
+openssl genrsa -out ${KEYS}/id_rsa.key 4096
+
+# Step 2: Generate RSA Public Key (id_rsa.pub)
+openssl rsa -in ${KEYS}/id_rsa.key -pubout -out ${KEYS}/id_rsa.pub

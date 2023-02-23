@@ -30,7 +30,9 @@ build/
 .env.*.local
 
 # SSL
-ssl/
+ssl/certificates/*
+ssl/keys/*
+ssl/server.pem
 
 # Cache Directory
 .cache/

@@ -3,6 +3,9 @@ package domain
 
 import (
 	"context"
+	"github.com/MochamadAkbar/go-grpc-microservices/domain/internal/repository"
+	"github.com/MochamadAkbar/go-grpc-microservices/domain/internal/usecase"
+	"github.com/MochamadAkbar/go-grpc-microservices/pkg/orm"
 
 	"github.com/MochamadAkbar/go-grpc-microservices/domain/internal/handler"
 	authv1 "github.com/MochamadAkbar/go-grpc-microservices/stubs/auth/v1"
@@ -17,6 +20,9 @@ func RegisterAuthServiceHandler(ctx context.Context, sv *runtime.ServeMux, conn 
 	}
 }
 
-func RegisterAuthServiceServer(ctx context.Context, sv *grpc.Server) {
-	authv1.RegisterAuthServiceServer(sv, &handler.AuthHandler{})
+func RegisterAuthServiceServer(ctx context.Context, db *orm.Provider, sv *grpc.Server) {
+	repo := repository.NewAuthRepository(db)
+	uc := usecase.NewAuthUsecase(repo)
+	srv := handler.NewAuthHandler(uc)
+	authv1.RegisterAuthServiceServer(sv, srv)
 }

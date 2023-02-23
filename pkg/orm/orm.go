@@ -12,8 +12,15 @@ type Provider struct {
 	*gorm.DB
 }
 
-func NewPSQL(ctx context.Context, connString string) (*Provider, error) {
-	orm, err := gorm.Open(postgres.Open(connString), &gorm.Config{})
+type ConfigConnProvider struct {
+	ConnMaxIdleTime time.Duration
+	ConnMaxLifetime time.Duration
+	MaxIdleConns    int
+	MaxOpenConns    int
+}
+
+func NewPSQL(ctx context.Context, connString string, cfg *ConfigConnProvider, ormConfig *gorm.Config) (*Provider, error) {
+	orm, err := gorm.Open(postgres.Open(connString), ormConfig)
 	if err != nil {
 		return nil, err
 	}
@@ -23,9 +30,10 @@ func NewPSQL(ctx context.Context, connString string) (*Provider, error) {
 		return nil, err
 	}
 
-	db.SetMaxIdleConns(10)
-	db.SetMaxOpenConns(100)
-	db.SetConnMaxLifetime(time.Hour)
+	db.SetMaxIdleConns(cfg.MaxIdleConns)
+	db.SetMaxOpenConns(cfg.MaxOpenConns)
+	db.SetConnMaxIdleTime(cfg.ConnMaxIdleTime)
+	db.SetConnMaxLifetime(cfg.ConnMaxLifetime)
 
 	return &Provider{orm}, nil
 }

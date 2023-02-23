@@ -4,6 +4,7 @@ package gateway
 import (
 	"context"
 	"fmt"
+	"github.com/MochamadAkbar/go-grpc-microservices/pkg/middleware"
 	"io/fs"
 	"log"
 	"mime"
@@ -65,13 +66,13 @@ func (gw *Gateway) Run(ctx context.Context) error {
 
 	gwServer := &http.Server{
 		Addr: fmt.Sprintf(":%v", gw.Addr),
-		Handler: http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
+		Handler: middleware.CORS(http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
 			if strings.HasPrefix(request.URL.Path, "/api/v1") {
 				gw.ServeMux.ServeHTTP(writer, request)
 				return
 			}
 			mux.ServeHTTP(writer, request)
-		}),
+		})),
 		ReadTimeout:    gw.ReadTimeout,
 		WriteTimeout:   gw.WriteTimeout,
 		MaxHeaderBytes: gw.MaxHeaderBytes,

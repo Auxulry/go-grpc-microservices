@@ -11,9 +11,7 @@ message HealthCheckResponse {
 }
 
 message TokenData {
-  string userId = 1;
-  string token = 2;
-  uint32 expiresIn = 3;
+  string access_token = 1;
 }
 
 message RegisterRequest {

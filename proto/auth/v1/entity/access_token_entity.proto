@@ -19,7 +19,7 @@ message AccessTokenEntity {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (gorm.field).tag = {type: "uuid", primary_key: true not_null: true default: "uuid_generate_v4()"}
   ];
-  repeated UserEntity users = 2;
+  string user_id = 2 [(gorm.field).tag = {not_null: true}];
   bool revoked = 3 [(gorm.field).tag = {default: "0"}];
   google.protobuf.Timestamp expires_at = 4 [(gorm.field).tag = {not_null: true}];
   google.protobuf.Timestamp created_at = 5 [(google.api.field_behavior) = OUTPUT_ONLY];

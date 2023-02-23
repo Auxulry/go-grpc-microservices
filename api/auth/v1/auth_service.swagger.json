@@ -203,15 +203,8 @@
     "v1TokenData": {
       "type": "object",
       "properties": {
-        "userId": {
+        "accessToken": {
           "type": "string"
-        },
-        "token": {
-          "type": "string"
-        },
-        "expiresIn": {
-          "type": "integer",
-          "format": "int64"
         }
       }
     }

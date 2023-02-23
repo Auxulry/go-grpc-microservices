@@ -17,8 +17,30 @@ type AuthHandler struct {
 	Usecase usecase.AuthUsecase
 }
 
+func NewAuthHandler(usecase usecase.AuthUsecase) authv1.AuthServiceServer {
+	return &AuthHandler{Usecase: usecase}
+}
+
 func (handler *AuthHandler) Check(ctx context.Context, in *authv1.HealthCheckRequest) (*authv1.HealthCheckResponse, error) {
 	return &authv1.HealthCheckResponse{Message: http.StatusText(http.StatusOK)}, nil
+}
+
+func (handler *AuthHandler) Register(ctx context.Context, in *authv1.RegisterRequest) (*authv1.RegisterResponse, error) {
+	user := entity.UserEntity{
+		Name:     in.Name,
+		Email:    in.Email,
+		Password: in.Password,
+	}
+	res, err := handler.Usecase.Register(ctx, &user)
+	if err != nil {
+		return nil, err
+	}
+
+	return &authv1.RegisterResponse{
+		Code:   http.StatusOK,
+		Status: http.StatusText(http.StatusOK),
+		Data:   res,
+	}, nil
 }
 
 func (handler *AuthHandler) Login(ctx context.Context, in *authv1.LoginRequest) (*authv1.LoginResponse, error) {

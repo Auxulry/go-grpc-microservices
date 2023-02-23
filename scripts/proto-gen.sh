@@ -1,3 +1,4 @@
+#!/bin/bash
 # Generate Stubs
 protoc -I ./proto \
   --proto_path ./third_party/proto \
