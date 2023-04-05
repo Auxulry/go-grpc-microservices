@@ -1,3 +1,4 @@
+// Package middleware is describe reusable package for http middleware
 package middleware
 
 import (

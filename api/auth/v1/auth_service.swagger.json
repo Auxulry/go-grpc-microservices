@@ -148,7 +148,11 @@
         "password": {
           "type": "string"
         }
-      }
+      },
+      "required": [
+        "email",
+        "password"
+      ]
     },
     "v1LoginResponse": {
       "type": "object",
@@ -180,7 +184,12 @@
         "password": {
           "type": "string"
         }
-      }
+      },
+      "required": [
+        "name",
+        "email",
+        "password"
+      ]
     },
     "v1RegisterResponse": {
       "type": "object",

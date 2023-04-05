@@ -2,6 +2,9 @@ syntax = "proto3";
 
 package go_grpc_microservices.auth.v1;
 
+import "google/api/field_behavior.proto";
+import "protoc-gen-validate/validate/validate.proto";
+
 option go_package = "github.com/MochamadAkbar/go-grpc-microservices/proto/auth/v1;authv1";
 
 message HealthCheckRequest {}
@@ -15,9 +18,11 @@ message TokenData {
 }
 
 message RegisterRequest {
-  string name = 1;
-  string email = 2;
-  string password = 3;
+  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  string email = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = { email: true }];
+  string password = 3 [
+    (google.api.field_behavior) = REQUIRED
+  ];
 }
 
 message RegisterResponse {
@@ -28,8 +33,8 @@ message RegisterResponse {
 }
 
 message LoginRequest {
-  string email = 1;
-  string password = 2;
+  string email = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = { email: true }];
+  string password = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 message LoginResponse {

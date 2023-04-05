@@ -1,3 +1,4 @@
+// Package orm is describe reusable package for database orm
 package orm
 
 import (

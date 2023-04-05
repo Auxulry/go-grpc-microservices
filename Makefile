@@ -5,8 +5,8 @@ ENGINE=cmd/server/main.go
 BUILD_DIR=build
 CONN_STRING="postgres://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?sslmode=${DB_SSL}"
 MIGRATION_PATH=db/migrations
-RPC_PORT=3000
-GATEWAY_PORT=3001
+RPC_PORT=4000
+GATEWAY_PORT=4001
 
 debug:
 	go run ${ENGINE} service --svport ${RPC_PORT} --gwport ${GATEWAY_PORT}

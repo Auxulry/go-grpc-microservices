@@ -4,7 +4,6 @@ package cmd
 import (
 	"context"
 	"fmt"
-	"github.com/sirupsen/logrus"
 	"log"
 	"os"
 	"time"
@@ -15,6 +14,7 @@ import (
 	"github.com/MochamadAkbar/go-grpc-microservices/pkg/orm"
 	"github.com/MochamadAkbar/go-grpc-microservices/pkg/rpcclient"
 	"github.com/MochamadAkbar/go-grpc-microservices/pkg/rpcserver"
+	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/health"
